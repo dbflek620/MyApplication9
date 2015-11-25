@@ -37,14 +37,16 @@ public class MainActivity extends AppCompatActivity {
         edtDiary = (EditText) findViewById(R.id.editDiary);
         btnWrite = (Button) findViewById(R.id.button);
 
+        edtDiary.setEnabled(true);
         Calendar cal = Calendar.getInstance();
         int cYear = cal.get(Calendar.YEAR);
         int cMonth = cal.get(Calendar.MONTH);
         int cDay = cal.get(Calendar.DAY_OF_MONTH);
 
-        fileName = Integer.toString(cYear)+ "-" + Integer.toString(cMonth) + "-" + Integer.toString(cDay) + ".txt";
+        fileName = Integer.toString(cYear)+ "-" + Integer.toString(cMonth+1) + "-" + Integer.toString(cDay) + ".txt";
         String fread = readDiary(fileName);
         edtDiary.setText(fread);
+        btnWrite.setEnabled(true);
 
         dp.init(cYear, cMonth, cDay, new DatePicker.OnDateChangedListener() {
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 btnWrite.setEnabled(true);
             }
         });
+
+        //dp.updateDate(cYear,cMonth+1,cDay);
 
         btnWrite.setOnClickListener(new View.OnClickListener() {
             @Override
